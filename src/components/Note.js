@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Note = ({ todo, setTodoNotes, allTodoNotes }) => {
+const Note = ({ todo, setTodoNotes, allTodoNotes, currentCategoryState }) => {
 
     const deleteNoteHandler = () => {
 
@@ -10,41 +10,83 @@ const Note = ({ todo, setTodoNotes, allTodoNotes }) => {
 
     const completeNoteHandler = () => {
 
-        setTodoNotes(allTodoNotes.map((todo) => {
-            if (todo.id === todo.id) {
+        setTodoNotes(allTodoNotes.map(noteInLoop => {
+            if (noteInLoop.id === todo.id) {
                 return {
-                    ...todo, taskCompleted: !todo.taskCompleted  
+                    ...noteInLoop, taskCompleted: !noteInLoop.taskCompleted  
                 }
             }
-            return todo;
+            return noteInLoop;
         }))
 
     }
 
     return (
-        <div className='todo'>
 
-            <li className='todo-item'>{todo.text}</li>
-            
+        <>
             {
+                // if category = custom category then display notes for that custom category
+                currentCategoryState === todo.noteCategory ?(
+                    <div className='todo'>
 
-                todo.taskCompleted ? (
-                    <p className='todo-item'>Completed</p> // Add UI checkmark icon or something
+                        <li className='todo-item'>{todo.text}</li>
+                        
+                        {
+
+                            todo.taskCompleted ? (
+                                <p className='todo-item'>Completed</p> // Add UI checkmark icon or something
+                            ) : (
+                                <p className='todo-item'>Not completed</p>
+                            )
+                        }
+
+                        
+
+                        <button onClick={completeNoteHandler} className="complete-btn" >
+                            <i className='fa fa-complete'></i>    
+                        </button> 
+
+                        <button onClick={deleteNoteHandler} className="trash-btn" >
+                            <i className='fa fa-trash'></i>    
+                        </button>      
+                    </div>                    
                 ) : (
-                    <p className='todo-item'>Not completed</p>
+                    // if category = "All Categories" then  display all notes
+                    <>
+                        {
+                            currentCategoryState === "All Categories" ? (
+                                <div className='todo'>
+
+                                <li className='todo-item'>{todo.text}</li>
+                                
+                                {
+        
+                                    todo.taskCompleted ? (
+                                        <p className='todo-item'>Completed</p> // Add UI checkmark icon or something
+                                    ) : (
+                                        <p className='todo-item'>Not completed</p>
+                                    )
+                                }
+        
+                                
+        
+                                <button onClick={completeNoteHandler} className="complete-btn" >
+                                    <i className='fa fa-complete'></i>    
+                                </button> 
+        
+                                <button onClick={deleteNoteHandler} className="trash-btn" >
+                                    <i className='fa fa-trash'></i>    
+                                </button>      
+                            </div>      
+                            ) : (
+                                <> </>
+                            )
+                        }
+                    </>
                 )
+
             }
-
-            
-
-            <button onClick={completeNoteHandler} className="complete-btn" >
-                <i className='fa fa-complete'></i>    
-            </button> 
-
-            <button onClick={deleteNoteHandler} className="trash-btn" >
-                <i className='fa fa-trash'></i>    
-            </button>      
-        </div>
+        </>
     )
 }
 
