@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button'
 
-const Form = ({ inputText, allTodoNotes, setTodoNotes, setInputText }) => {
+const Form = ({ inputText, allTodoNotes, setTodoNotes, setInputText, currentCategoryState}) => {
 
     const changeInputText = (inputElement) => {
         // handling the input text
@@ -18,18 +18,25 @@ const Form = ({ inputText, allTodoNotes, setTodoNotes, setInputText }) => {
         // if (!inputElement.text || /^\s*$/.test(inputElement.text)){
         //     return;
         // }
-        setTodoNotes([{text: inputText, taskCompleted:false, id:Math.random()*10000 % 1000}, ...allTodoNotes]);
+
+        console.log(currentCategoryState);
+
+        setTodoNotes([{text: inputText, taskCompleted:false, id:Math.random()*10000 % 1000, noteCategory:currentCategoryState}, ...allTodoNotes]);
         setInputText("");
     }
 
 
     return (
+
+        <>
         <form className='MainForm'>
-            <>
-            <input value={inputText} onChange={changeInputText} type="text" name="name" />
+            
+            <input placeholder='Create a new task!' value={inputText} onChange={changeInputText} type="text" name="name" />
             <button className="trash-btn" onClick={addNote} >create task</button>                    
-            </>
-        </form>
+            
+        </form>       
+        </>
+
     )
 }
 
