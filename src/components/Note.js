@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-const Note = ({ todo, setTodoNotes, allTodoNotes, currentCategoryState }) => {
+const Note = ({ todo, setTodoNotes, allTodoNotes, currentCategoryState, date, setPassed }) => {
 
     const deleteNoteHandler = () => {
 
@@ -26,11 +26,19 @@ const Note = ({ todo, setTodoNotes, allTodoNotes, currentCategoryState }) => {
         <>
             {
                 // if category = custom category then display notes for that custom category
-                currentCategoryState === todo.noteCategory ?(
+                currentCategoryState === todo.noteCategory ? (
                     <div className='todo'>
 
                         <li className='todo-item'>{todo.text}</li>
-                        
+
+                        {
+                            todo.noteDeadline ? (
+                                <li style={{ border: todo.noteDeadlinePassed ? '5px solid red' : '' }}>Deadline:{todo.noteDeadline}</li>
+                            ) : (
+                                <li style={{ border: todo.noteDeadlinePassed ? '5px solid red' : '' }}>No Deadline{todo.noteDeadline}</li>
+                            )
+                        }
+
                         {
 
                             todo.taskCompleted ? (
@@ -39,8 +47,6 @@ const Note = ({ todo, setTodoNotes, allTodoNotes, currentCategoryState }) => {
                                 <p className='todo-item'>Not completed</p>
                             )
                         }
-
-                        
 
                         <button onClick={completeNoteHandler} className="complete-btn" >
                             <i className='fa fa-complete'></i>    
@@ -57,8 +63,16 @@ const Note = ({ todo, setTodoNotes, allTodoNotes, currentCategoryState }) => {
                             currentCategoryState === "All Categories" ? (
                                 <div className='todo'>
 
-                                <li className='todo-item'>{todo.text}</li>
+                                <li className='todo-item' style={{border:' '}}>{todo.text}</li>
                                 
+                            {
+                                todo.noteDeadline ? (
+                                    <li style={{ border: todo.noteDeadlinePassed ? '5px solid red' : '' }}>Deadline:{todo.noteDeadline}</li>
+                                ) : (
+                                    <li style={{ border: todo.noteDeadlinePassed ? '5px solid red' : '' }}>No Deadline{todo.noteDeadline}</li>
+                                )
+                            }
+
                                 {
         
                                     todo.taskCompleted ? (
@@ -67,8 +81,6 @@ const Note = ({ todo, setTodoNotes, allTodoNotes, currentCategoryState }) => {
                                         <p className='todo-item'>Not completed</p>
                                     )
                                 }
-        
-                                
         
                                 <button onClick={completeNoteHandler} className="complete-btn" >
                                     <i className='fa fa-complete'></i>    
