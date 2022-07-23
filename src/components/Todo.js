@@ -9,6 +9,8 @@ const Todo = () => {
     const [allTodoNotes, setTodoNotes] = useState([]);
     const [inputText, setInputText] = useState("");
     const [currentNotesByCategory, setCurrentNotesByCategory] = useState([]);
+    const [date, setDate] = useState("")
+    const [passed, setPassed] = useState(false);
 
     // Categories useState hooks
     const [allCategories, setAllCategories] = useState([]);
@@ -23,6 +25,10 @@ const Todo = () => {
                 <h1>Todo App</h1>
             </header>
             <Form 
+                passed={passed}
+                setPassed={setPassed}
+                date={date}
+                setDate={setDate}
                 currentCategoryState={currentCategoryState}
                 inputText={inputText} 
                 allTodoNotes={allTodoNotes}
@@ -44,7 +50,14 @@ const Todo = () => {
             >
             </Categories>
 
-            <List currentCategoryState={currentCategoryState} allTodoNotes={allTodoNotes} setTodoNotes={setTodoNotes} ></List>
+            <List 
+                currentCategoryState={currentCategoryState}
+                allTodoNotes={allTodoNotes} 
+                setTodoNotes={setTodoNotes} 
+                date={date}
+                setPassed={setPassed}
+            >
+            </List>
 
         </div>
     )
