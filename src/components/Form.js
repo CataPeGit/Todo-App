@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import Button from 'react-bootstrap/Button'
 import DatePicker from './DatePicker';
 
 const Form = ({ inputText, allTodoNotes, setTodoNotes, setInputText, currentCategoryState, date, setDate, passed, setPassed}) => {
 
     const changeInputText = (inputElement) => {
-        // handling the input text
+
         setInputText(inputElement.target.value);
     }
 
@@ -19,6 +18,8 @@ const Form = ({ inputText, allTodoNotes, setTodoNotes, setInputText, currentCate
         setTodoNotes([{text: inputText, taskCompleted:false, id:Math.random()*10000 % 1000, noteCategory:currentCategoryState, noteDeadline:date, noteDeadlinePassed:passed}, ...allTodoNotes]);
         setInputText("");
     }
+
+
 
     return (
 

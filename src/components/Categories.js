@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Button from 'react-bootstrap/Button'
 
 
 const Categories = ({ 
@@ -17,7 +16,6 @@ const Categories = ({
     }
 
     const addCategory = (inputElement) => {
-        //console.log(categoryInput);
         inputElement.preventDefault();
         setAllCategories([{category: categoryInput}, ...allCategories]);
         setCurrentCategoryState(categoryInput);
@@ -29,7 +27,7 @@ const Categories = ({
         <>
             <form className='MainForm'>
 
-                <input placeholder='Create a new category!' value={categoryInput} onChange={changeCategoryInput} type="text" name="name" />
+                <input className='textInput' placeholder='Create a new category!' value={categoryInput} onChange={changeCategoryInput} type="text" name="name" />
                 <button className="trash-btn" onClick={addCategory} >Create category</button>        
 
                 <div className='select'>
